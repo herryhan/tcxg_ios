@@ -1,0 +1,107 @@
+//
+//  CityShoppingPrefixHeader.pch
+//  同城享购
+//
+//  Created by 庄园 on 2017/11/8.
+//  Copyright © 2017年 庄园. All rights reserved.
+//
+
+#ifndef CityShoppingPrefixHeader_pch
+#define CityShoppingPrefixHeader_pch
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#define IPHONE5 (([UIScreen mainScreen].bounds.size.width) == 320)
+#define IPHONE6 (([UIScreen mainScreen].bounds.size.width) == 375)
+#define IPHONE6_PLUS (([UIScreen mainScreen].bounds.size.width) == 414)
+
+#define IPHONE_X (([UIScreen mainScreen].bounds.size.height) == 812)
+#define SafeAreaTopHeight (IPHONE_X ? 88 : 64)
+#define SafeAreaBottomHeight (IPHONE_X ? 83 : 49)
+
+
+
+#define del ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
+#define UIColorFromHexWithAlpha(hexValue,a) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:a]
+#define UIColorFromHex(hexValue)            UIColorFromHexWithAlpha(hexValue,1.0)
+#define UIColorFromRGBA(r,g,b,a)            [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define UIColorFromRGB(r,g,b)               UIColorFromRGBA(r,g,b,1.0)
+
+#define IOS7 [[[UIDevice currentDevice] systemVersion] floatValue]>=7.0
+#define IOS8 [[[UIDevice currentDevice] systemVersion] floatValue]>=8.0
+
+#define declareWeakSelf __weak typeof(self) weakSelf = self;
+
+#define JSBundleVersion   ((NSString *)[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"])
+#define Uid [keepUserInfoHandle readUserInfoWith:1]
+
+// 相对iphone6 屏幕比
+#define KWidth_ScaleW [UIScreen mainScreen].bounds.size.width/375.0f
+#define KWidth_ScaleH [UIScreen mainScreen].bounds.size.height/736.0f
+
+#define PX_SCREEN_BOUNDS [[UIScreen mainScreen] bounds]
+#define PX_SCREEN_WIDTH           PX_SCREEN_BOUNDS.size.width
+#define PX_SCREEN_HEIGHT          PX_SCREEN_BOUNDS.size.height
+#define PX_COLOR_HEX(HexString)[UIColor colorWithHexString:(HexString)]
+
+#define PX_RANDOM_COLOR UIColorFromRGB(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+
+#define DEBUGLOG
+#ifdef DEBUGLOG
+#      define PXDALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#      define PXDALog(...)
+#endif
+
+#define PX_CURRENT_SIZE(_size) _size / 750.0 * SCREEN_WIDTH
+
+#define PX_IMAGE_NAMED(named) [UIImage imageNamed:named]
+
+#define PX_LAZY(object, assignment) (object = object ?: assignment)
+
+#define Font(size) [UIFont systemFontOfSize:(size)]
+
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+#define QPXWeak_Self(type)  __weak typeof(type) weak##type = type;
+
+#import <YYKit.h>
+#import "URLRequest.h"
+#import "cityShoppingTool.h"
+#import <CoreLocation/CoreLocation.h>
+#import "JTBaseNavigationController.h"
+#import "MBProgressHUD.h"
+#import "hudCustom.h"
+#import <UIImageView+WebCache.h>
+#import "UIView+SDAutoLayout.h"
+#import "UITableView+SDAutoTableViewCellHeight.h"
+#import "YYClassInfo.h"
+#import <MJRefresh.h>
+#import "MBProgressHUD+HxwHud.h"
+#import "SVProgressHUD.h"
+#import "keepUserInfoHandle.h"
+
+#import <ColorExtension/UIColor+Hex.h>
+#import <MJExtension/MJExtension.h>
+#import "NSString+PX.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import "PXSingleLineView.h"
+#import "UIButton+QPX_Extend.h"
+#import "PXRefreshHeader.h"
+
+//高德头文件
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+
+#import "WXApi.h"
+
+typedef void (^ReturnValueBlock) (id returnValue);
+typedef void (^ErrorCodeBlock) (id errorCode);
+typedef void (^FailureBlock)(void);
+
+#endif /* CityShoppingPrefixHeader_pch */

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="0fQ-yQ-r5n" customClass="cartHeadView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feu-kr-jMm">
+                    <rect key="frame" x="15" y="10" width="35.5" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="xAS-EK-GX8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrL-7K-ZQB">
+                    <rect key="frame" x="275" y="10" width="100" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="HWR-eV-xXY"/>
+                        <constraint firstAttribute="width" constant="100" id="vPH-7M-Yt6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="清空购物车">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="239" translatesAutoresizingMaskIntoConstraints="NO" id="LAI-7Q-7BY">
+                    <rect key="frame" x="0.0" y="55.5" width="375" height="0.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="v0g-mz-6cM"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="feu-kr-jMm" firstAttribute="leading" secondItem="0fQ-yQ-r5n" secondAttribute="leading" constant="15" id="4Ds-4S-7cA"/>
+                <constraint firstAttribute="trailing" secondItem="LAI-7Q-7BY" secondAttribute="trailing" id="4fA-fQ-yLX"/>
+                <constraint firstItem="TrL-7K-ZQB" firstAttribute="top" secondItem="0fQ-yQ-r5n" secondAttribute="top" constant="10" id="8kj-Iz-whx"/>
+                <constraint firstAttribute="bottom" secondItem="LAI-7Q-7BY" secondAttribute="bottom" id="IEs-F9-Vjx"/>
+                <constraint firstItem="feu-kr-jMm" firstAttribute="top" secondItem="0fQ-yQ-r5n" secondAttribute="top" constant="10" id="RMG-eu-Gte"/>
+                <constraint firstAttribute="trailing" secondItem="TrL-7K-ZQB" secondAttribute="trailing" id="ZaJ-PO-QfR"/>
+                <constraint firstItem="LAI-7Q-7BY" firstAttribute="leading" secondItem="0fQ-yQ-r5n" secondAttribute="leading" id="ykD-h9-BuT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="countAndWeightLabel" destination="feu-kr-jMm" id="HM3-Ze-shR"/>
+                <outlet property="removeAllGoodsBtn" destination="TrL-7K-ZQB" id="Wcu-Nu-CJ3"/>
+            </connections>
+            <point key="canvasLocation" x="46.5" y="332"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="239" width="1" height="1"/>
+    </resources>
+</document>

@@ -1,0 +1,18 @@
+//
+//  cartView.h
+//  同城享购
+//
+//  Created by 韩先炜 on 2017/11/22.
+//  Copyright © 2017年 庄园. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface cartView : UIView <UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong) NSMutableArray *objects;
+
+@property (nonatomic,strong) UITableView *tableView;
+
+
+@end

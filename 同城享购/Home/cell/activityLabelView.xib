@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="bqL-UC-I9y" customClass="activityLabelView">
+            <rect key="frame" x="0.0" y="0.0" width="278" height="23"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="满减" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5Y-qK-qYt">
+                    <rect key="frame" x="0.0" y="3.5" width="32" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="YWT-K4-slq"/>
+                        <constraint firstAttribute="height" constant="15" id="lbA-qg-vsO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7am-jF-6eL">
+                    <rect key="frame" x="37" y="0.0" width="241" height="23"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="S5Y-qK-qYt" firstAttribute="top" secondItem="bqL-UC-I9y" secondAttribute="top" constant="4" id="Ddo-AQ-cIU"/>
+                <constraint firstAttribute="trailing" secondItem="7am-jF-6eL" secondAttribute="trailing" id="ZSp-mq-Ohv"/>
+                <constraint firstItem="7am-jF-6eL" firstAttribute="leading" secondItem="S5Y-qK-qYt" secondAttribute="trailing" constant="5" id="cdr-bD-p3V"/>
+                <constraint firstItem="S5Y-qK-qYt" firstAttribute="leading" secondItem="bqL-UC-I9y" secondAttribute="leading" id="dJp-6F-K18"/>
+                <constraint firstItem="7am-jF-6eL" firstAttribute="top" secondItem="bqL-UC-I9y" secondAttribute="top" id="e49-yr-trb"/>
+                <constraint firstAttribute="bottom" secondItem="7am-jF-6eL" secondAttribute="bottom" id="eJw-DU-tuc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="activityContentLabel" destination="7am-jF-6eL" id="RxZ-rn-ceh"/>
+                <outlet property="activityNameLabel" destination="S5Y-qK-qYt" id="LY1-Ku-1op"/>
+            </connections>
+            <point key="canvasLocation" x="-24" y="966.5"/>
+        </view>
+    </objects>
+</document>

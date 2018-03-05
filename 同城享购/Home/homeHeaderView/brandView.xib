@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="vnB-1Q-Kt8" customClass="brandView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGq-sz-MAI">
+                    <rect key="frame" x="0.0" y="0.0" width="100" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="6YF-WL-anM"/>
+                        <constraint firstAttribute="width" constant="100" id="9CA-UK-Jgp"/>
+                    </constraints>
+                    <state key="normal" image="brand_1"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lo5-hO-0RE">
+                    <rect key="frame" x="102" y="0.0" width="273" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="2p3-2H-HvU"/>
+                    </constraints>
+                    <state key="normal" image="brand_2"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qEc-q4-pBX">
+                    <rect key="frame" x="102" y="102" width="134.5" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="l0S-cE-oTe"/>
+                    </constraints>
+                    <state key="normal" image="brand_3"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaS-BX-Qik">
+                    <rect key="frame" x="238.5" y="102" width="134.5" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="Otq-aI-sOL"/>
+                    </constraints>
+                    <state key="normal" image="brand_4"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="CaS-BX-Qik" secondAttribute="trailing" constant="2" id="09B-UG-O6y"/>
+                <constraint firstItem="qEc-q4-pBX" firstAttribute="width" secondItem="CaS-BX-Qik" secondAttribute="width" id="Lmb-es-V4R"/>
+                <constraint firstItem="CaS-BX-Qik" firstAttribute="top" secondItem="lo5-hO-0RE" secondAttribute="bottom" constant="2" id="ZBj-c8-rCK"/>
+                <constraint firstItem="lo5-hO-0RE" firstAttribute="leading" secondItem="JGq-sz-MAI" secondAttribute="trailing" constant="2" id="ZhE-gI-q24"/>
+                <constraint firstItem="qEc-q4-pBX" firstAttribute="leading" secondItem="JGq-sz-MAI" secondAttribute="trailing" constant="2" id="Zo2-oO-065"/>
+                <constraint firstItem="CaS-BX-Qik" firstAttribute="leading" secondItem="qEc-q4-pBX" secondAttribute="trailing" constant="2" id="bht-lp-5rn"/>
+                <constraint firstItem="lo5-hO-0RE" firstAttribute="top" secondItem="vnB-1Q-Kt8" secondAttribute="top" id="cl6-4V-iIv"/>
+                <constraint firstItem="JGq-sz-MAI" firstAttribute="top" secondItem="vnB-1Q-Kt8" secondAttribute="top" id="foA-1f-6Ce"/>
+                <constraint firstItem="JGq-sz-MAI" firstAttribute="leading" secondItem="vnB-1Q-Kt8" secondAttribute="leading" id="nfy-g0-1yY"/>
+                <constraint firstAttribute="trailing" secondItem="lo5-hO-0RE" secondAttribute="trailing" id="qB7-8I-OFE"/>
+                <constraint firstItem="qEc-q4-pBX" firstAttribute="top" secondItem="lo5-hO-0RE" secondAttribute="bottom" constant="2" id="sDs-W8-5cf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="firstConstraint" destination="9CA-UK-Jgp" id="EUT-C4-ADl"/>
+            </connections>
+            <point key="canvasLocation" x="104.5" y="253"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="brand_1" width="142" height="195"/>
+        <image name="brand_2" width="212" height="87"/>
+        <image name="brand_3" width="107" height="107"/>
+        <image name="brand_4" width="105" height="107"/>
+    </resources>
+</document>
