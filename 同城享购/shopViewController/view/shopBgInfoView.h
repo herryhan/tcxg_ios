@@ -21,6 +21,7 @@
 @property (nonatomic,strong) UIView *actView;
 @property (nonatomic,strong) UIView *sendInfoView;
 @property (nonatomic,strong) UIView *noticeView;
+
 - (void)viewConfigWithModel:(homeModel *)model;
 
 @end
