@@ -79,7 +79,6 @@
 		A64FBD15204FBD5600824080 /* OrderTableListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A64FBCDE204FBD5600824080 /* OrderTableListView.m */; };
 		A64FBD16204FBD5600824080 /* OrderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A64FBCDF204FBD5600824080 /* OrderItemView.m */; };
 		A64FBD17204FBD5600824080 /* OrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A64FBCE0204FBD5600824080 /* OrderTableCell.m */; };
-		A64FBD18204FBD5600824080 /* orderViewController 2.m in Sources */ = {isa = PBXBuildFile; fileRef = A64FBCE3204FBD5600824080 /* orderViewController 2.m */; };
 		A658631ED1776CC30C545556 /* libPods-同城享购.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64D150B1C8EDA04C9E52C3AD /* libPods-同城享购.a */; };
 		CE01EEFE1FB93A85004F9655 /* hudCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = CE01EEFD1FB93A84004F9655 /* hudCustom.m */; };
 		CE01EF051FB94790004F9655 /* MBProgressHUD+HxwHud.m in Sources */ = {isa = PBXBuildFile; fileRef = CE01EF041FB94790004F9655 /* MBProgressHUD+HxwHud.m */; };
@@ -282,7 +281,6 @@
 		A64FBCA7204FBD5600824080 /* AddressSelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressSelViewController.m; sourceTree = "<group>"; };
 		A64FBCA8204FBD5600824080 /* citySendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = citySendViewController.h; sourceTree = "<group>"; };
 		A64FBCAA204FBD5600824080 /* orderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderViewController.m; sourceTree = "<group>"; };
-		A64FBCAB204FBD5600824080 /* orderViewController 2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "orderViewController 2.h"; sourceTree = "<group>"; };
 		A64FBCAD204FBD5600824080 /* GoodsOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsOrderVC.m; sourceTree = "<group>"; };
 		A64FBCAF204FBD5600824080 /* GoodsCommentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentVC.m; sourceTree = "<group>"; };
 		A64FBCB0204FBD5600824080 /* PXStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStarRateView.m; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 		A64FBCE0204FBD5600824080 /* OrderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableCell.m; sourceTree = "<group>"; };
 		A64FBCE1204FBD5600824080 /* OrderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemView.h; sourceTree = "<group>"; };
 		A64FBCE2204FBD5600824080 /* OrderTableListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableListView.h; sourceTree = "<group>"; };
-		A64FBCE3204FBD5600824080 /* orderViewController 2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "orderViewController 2.m"; sourceTree = "<group>"; };
 		CE01EEFC1FB93A84004F9655 /* hudCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hudCustom.h; sourceTree = "<group>"; };
 		CE01EEFD1FB93A84004F9655 /* hudCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hudCustom.m; sourceTree = "<group>"; };
 		CE01EF031FB94790004F9655 /* MBProgressHUD+HxwHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+HxwHud.h"; sourceTree = "<group>"; };
@@ -896,13 +893,11 @@
 		A64FBCA9204FBD5600824080 /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				A64FBCAA204FBD5600824080 /* orderViewController.m */,
-				A64FBCAB204FBD5600824080 /* orderViewController 2.h */,
-				A64FBCAC204FBD5600824080 /* Controller */,
 				A64FBCD3204FBD5600824080 /* orderViewController.h */,
+				A64FBCAA204FBD5600824080 /* orderViewController.m */,
+				A64FBCAC204FBD5600824080 /* Controller */,
 				A64FBCD4204FBD5600824080 /* Model */,
 				A64FBCD9204FBD5600824080 /* View */,
-				A64FBCE3204FBD5600824080 /* orderViewController 2.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -910,18 +905,18 @@
 		A64FBCAC204FBD5600824080 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A64FBCAD204FBD5600824080 /* GoodsOrderVC.m */,
-				A64FBCAE204FBD5600824080 /* GoodsComment */,
-				A64FBCB5204FBD5600824080 /* SameCityOrderListVC.h */,
-				A64FBCB6204FBD5600824080 /* OrderListVC.h */,
+				A64FBCBC204FBD5600824080 /* OrderCenterVC.h */,
 				A64FBCB7204FBD5600824080 /* OrderCenterVC.m */,
+				A64FBCB6204FBD5600824080 /* OrderListVC.h */,
+				A64FBCBB204FBD5600824080 /* OrderListVC.m */,
+				A64FBCD2204FBD5600824080 /* SameCityOrderVC.h */,
 				A64FBCB8204FBD5600824080 /* SameCityOrderVC.m */,
 				A64FBCB9204FBD5600824080 /* SameCityOrderListVC.m */,
+				A64FBCB5204FBD5600824080 /* SameCityOrderListVC.h */,
 				A64FBCBA204FBD5600824080 /* GoodsOrderVC.h */,
-				A64FBCBB204FBD5600824080 /* OrderListVC.m */,
-				A64FBCBC204FBD5600824080 /* OrderCenterVC.h */,
+				A64FBCAD204FBD5600824080 /* GoodsOrderVC.m */,
+				A64FBCAE204FBD5600824080 /* GoodsComment */,
 				A64FBCBD204FBD5600824080 /* GoodsOrderInfo */,
-				A64FBCD2204FBD5600824080 /* SameCityOrderVC.h */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1554,7 +1549,6 @@
 				CE08C71D1FB52F6B00ED7B29 /* nearShopView.m in Sources */,
 				A64FBD04204FBD5600824080 /* OrderCenterVC.m in Sources */,
 				CE08C7621FB6C32B00ED7B29 /* nearShopTableViewCell.m in Sources */,
-				A64FBD18204FBD5600824080 /* orderViewController 2.m in Sources */,
 				CED5111E2032EC8200056ED0 /* searchByClassView.m in Sources */,
 				A64FBCF7204FBD5600824080 /* CitySendExtraServiceView.m in Sources */,
 				CE7E128D1FC523AB00FD0651 /* cartView.m in Sources */,
