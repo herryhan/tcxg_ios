@@ -1759,7 +1759,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/同城享购/shopViewController/shopItool",
 				);
-				GCC_PREFIX_HEADER = "/Users/hanxianwei/Desktop/tcxg_ios/同城享购/CityShoppingPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/CityShoppingPrefixHeader.pch";
 				INFOPLIST_FILE = "同城享购/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1845,7 +1845,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/同城享购/shopViewController/shopItool",
 				);
-				GCC_PREFIX_HEADER = "/Users/hanxianwei/Desktop/tcxg_ios/同城享购/CityShoppingPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/CityShoppingPrefixHeader.pch";
 				INFOPLIST_FILE = "同城享购/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

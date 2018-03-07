@@ -44,6 +44,7 @@
     //初始化高德地图
     [self getLocationService];
     [AMapServices sharedServices].apiKey = @"9794b4f62c2ef383b60214e88d08e211";
+    PXDALog(@"123");
 //
 //   //判断是否已经有uuid
 //
