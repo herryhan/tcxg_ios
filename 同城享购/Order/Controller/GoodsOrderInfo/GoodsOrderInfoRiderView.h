@@ -11,6 +11,6 @@
 @interface GoodsOrderInfoRiderView : UIView
 
 //** mdoel */
-@property (nonatomic,strong) NSDictionary * model;
+@property (nonatomic,strong) NSString * model;
 @property (nonatomic,copy) void(^GoodsOrderInfoRiderButtonAction)(void);
 @end

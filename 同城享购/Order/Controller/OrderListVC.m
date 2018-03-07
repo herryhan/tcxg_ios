@@ -11,7 +11,7 @@
 #import "GoodsOrderInfoVC.h"
 #import "GoodsCommentVC.h"
 
-@interface OrderListVC ()<UITableViewDelegate,UITableViewDataSource,OrderTableCellDelegate>
+@interface OrderListVC ()<UITableViewDelegate,UITableViewDataSource,OrderTableCellDelegate,UIAlertViewDelegate>
 //** tableView */
 @property (nonatomic,weak) UITableView * mTableView;
 //** datsSoure */
@@ -20,6 +20,15 @@
 
 @implementation OrderListVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNotification:) name:@"gotoLogin" object:nil];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"gotoLogin" object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -27,6 +36,11 @@
     PXSingleLineView *lineView = [[PXSingleLineView alloc] initWithFrame:CGRectMake(0, 0, PX_SCREEN_WIDTH, .8f)];
     [self.view addSubview:lineView];
     [self setupView];
+}
+
+- (void)getNotification:(NSNotification *)sender{
+    PXDALog(@"%s",__func__);
+    [self.mTableView.mj_header endRefreshing];
 }
 
 static NSString *cellId = @"cell";
@@ -105,10 +119,30 @@ static NSString *cellId = @"cell";
 - (void)orderTableCell:(OrderTableCell *)cell clickButtonType:(OrderTableCellButtonAction)buttonType{
     PXDALog(@"%s",__func__);
     if (buttonType == OrderTableCellButtonAction_Delete) {
-        [SVProgressHUD showErrorWithStatus:@"删除订单"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"是否要删除此订单？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alertView.tag = cell.model.order_id;
     }else{
         GoodsCommentVC *vc = [GoodsCommentVC new];
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        //删除订单
+        [SVProgressHUD showWithStatus:@"请稍候…"];
+        NSDictionary *params = [NSDictionary dictionaryWithObjects:@[Uid,@(1),@"ios",@"",@(alertView.tag)] forKeys:@[@"uuid",@"locate",@"os",@"channelId",@"id"]];
+        [URLRequest postWithURL:@"order/new/del" params:params success:^(NSURLSessionDataTask *task, id responseObject) {
+            responseObject = responseObject?[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]:nil;
+            if ([[responseObject objectForKey:@"state"] isEqualToString:@"success"]) {
+                //删除成功
+                [self.mTableView.mj_header beginRefreshing];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"服务器打盹了"];
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"服务器打盹了"];
+        }];
     }
 }
 

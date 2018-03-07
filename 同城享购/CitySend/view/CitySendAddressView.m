@@ -114,8 +114,8 @@
             [self addSubview:view];
             view.sd_layout
                 .rightSpaceToView(self, 5)
-                .topSpaceToView(self, 10)
-                .bottomSpaceToView(self, 10)
+                .topSpaceToView(self, 5)
+                .bottomSpaceToView(self, 5)
                 .widthEqualToHeight();
             [view setImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
             view;

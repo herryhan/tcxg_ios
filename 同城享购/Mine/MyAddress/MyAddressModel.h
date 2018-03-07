@@ -16,6 +16,8 @@
 @property (nonatomic , copy  ) NSString * mine_name;
 @property (nonatomic , copy  ) NSString * mine_tel;
 @property (nonatomic , copy  ) NSString * mine_pinyin;
+@property (nonatomic , assign) CGFloat  mine_la;
+@property (nonatomic , assign) CGFloat  mine_lo;
 
 @end
 

@@ -10,7 +10,7 @@
 #import "MyAddressCell.h"
 #import "EditeAddressVC.h"
 
-@interface MyAddressVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchDisplayDelegate,MyAddressCellDelegate>
+@interface MyAddressVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchDisplayDelegate,MyAddressCellDelegate,UIAlertViewDelegate>
 //** tableView */
 @property (nonatomic,weak) UITableView * mTableView;
 //** searchBar */
@@ -99,7 +99,7 @@ static NSString *cellId = @"cellId";
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     self.isSearching = searchText.length > 0;
     //匹配搜索结果
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"mine_tel CONTAINS %@ OR mine_pinyin CONTAINS[cd] %@ OR mine_name CONTAINS %@,mine_address CONTAINS %@ OR mine_number CONTAINS %@",searchText,searchText,searchText,searchText,searchText];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"mine_tel CONTAINS %@ OR mine_pinyin CONTAINS[cd] %@ OR mine_name CONTAINS %@",searchText,searchText,searchText];
     self.searchSource = [self.dataSource filteredArrayUsingPredicate:predicate];
     //刷新列表
     [self.mTableView reloadData];
@@ -132,6 +132,28 @@ static NSString *cellId = @"cellId";
         [self.navigationController pushViewController:vc animated:YES ];
     }else{
         //删除地址
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您确定要删除该地址？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alertView.tag = [cell.model.mine_id integerValue];
+        [alertView show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        //删除地址
+        [SVProgressHUD showWithStatus:@"请稍候…"];
+        [URLRequest postWithURL:@"address/del" params:@{@"uuid":Uid,@"locate":@(1),@"os":@"ios",@"channelId":@"",@"id":@(alertView.tag)} success:^(NSURLSessionDataTask *task, id responseObject) {
+            responseObject = responseObject ? [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding] : nil;
+            if ([responseObject isEqualToString:@"\'ok\'"]) {
+                //删除成功
+                [SVProgressHUD dismiss];
+                [self.mTableView.mj_header beginRefreshing];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"服务器打盹了……"];
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"服务器打盹了……"];
+        }];
     }
 }
 
@@ -155,11 +177,20 @@ static NSString *cellId = @"cellId";
 
 #pragma mark UITableViewDelegate
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_SelMyAddressBlock) {
-        _SelMyAddressBlock(self.dataSource[indexPath.row]);
+        [SVProgressHUD showWithStatus:@"请稍候……"];
+        MyAddressModel *model = self.dataSource[indexPath.row];
+        [URLRequest postWithURL:@"address" params:@{@"uuid":Uid,@"locate":@(1),@"channelId":@"",@"os":@"ios",@"id":model.mine_id} success:^(NSURLSessionDataTask *task, id responseObject) {
+            responseObject = responseObject?[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]:nil;
+            MyAddressModel *selModel = [MyAddressModel mj_objectWithKeyValues:responseObject];
+            _SelMyAddressBlock(selModel);
+            [SVProgressHUD dismiss];
+            [self.navigationController popViewControllerAnimated:YES];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [SVProgressHUD dismiss];
+        }];
     }else{
         //编辑地址
         EditeAddressVC *vc = [EditeAddressVC new];

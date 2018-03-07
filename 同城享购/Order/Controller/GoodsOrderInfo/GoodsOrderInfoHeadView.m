@@ -66,9 +66,9 @@
     
 }
 
-- (void)setModel:(GoodsOrderModel *)model{
-    _mStateLabel.text = model.order_stateDes;
-    _mProgressView.progress = 5;
+- (void)setModel:(GoodsOrderInfoModel *)model{
+    _mStateLabel.text = model.model_stateDes;
+    _mProgressView.progress = [self getProgressWithState:model.model_state];
     //如果已经评论，或者不需要评论的时候隐藏评论按钮
     //[_mCommentButton sd_clearAutoLayoutSettings];
     //_mCommentButton.hidden = YES;
@@ -76,6 +76,46 @@
     //否则显示评论按钮
     [self setupAutoHeightWithBottomView:_mCommentButton bottomMargin:15];
     
+}
+
+- (NSInteger)getProgressWithState:(NSInteger)state{
+    NSInteger progress = 0;
+    switch (state) {
+        case 0://未付款
+            progress = 0;
+            break;
+        case 1://超时未付款
+            progress = 10001;
+            break;
+        case 2://已付款，等待商家接单
+            progress = 1;
+            break;
+        case 3://商家接单
+            progress = 2;
+            break;
+        case 4://商家拒绝接单
+            progress = 10001;
+            break;
+        case 5://骑手接单
+            progress = 10001;
+            break;
+        case 6://骑手到店
+            progress = 3;
+            break;
+        case 7://等待确认收货
+            progress = 4;
+            break;
+        case 10://订单完成
+            progress = 5;
+            break;
+        case 11://订单意外关闭
+            progress = 10001;
+            break;
+        default:
+            progress = 10001;
+            break;
+    }
+    return progress;
 }
 
 @end

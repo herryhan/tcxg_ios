@@ -85,7 +85,7 @@
         .leftEqualToView(_mAvatarImageView)
         .rightEqualToView(_mCommentStateLabel)
         .topSpaceToView(_mAvatarImageView, 5)
-        .heightIs(.8f);
+        .heightIs(.5f);
     
     _mOrderListView.sd_layout
         .leftSpaceToView(view, margin + padding)
@@ -105,7 +105,7 @@
         .leftEqualToView(_mTopLineView)
         .rightEqualToView(_mTopLineView)
         .topSpaceToView(_mPriceLabel, margin)
-        .heightIs(.8f);
+        .heightIs(.5f);
     
     _mDeleteOrderButton.sd_layout
         .rightEqualToView(_mTopLineView)
@@ -115,7 +115,7 @@
     [_mDeleteOrderButton setupAutoSizeWithHorizontalPadding:padding buttonHeight:30];
     [_mDeleteOrderButton setTitleColor:PX_COLOR_HEX(@"666666") forState:UIControlStateNormal];
     _mDeleteOrderButton.layer.masksToBounds = YES;
-    _mDeleteOrderButton.layer.borderWidth = 1.0f;
+    _mDeleteOrderButton.layer.borderWidth = .5f;
     _mDeleteOrderButton.layer.borderColor = PX_COLOR_HEX(@"666666").CGColor;
     
     _mCommentOrderButton.sd_layout
@@ -127,7 +127,7 @@
     [_mCommentOrderButton setupAutoSizeWithHorizontalPadding:padding buttonHeight:30];
     _mCommentOrderButton.layer.masksToBounds = YES;
     _mCommentOrderButton.layer.borderColor = PX_COLOR_HEX(@"666666").CGColor;
-    _mCommentOrderButton.layer.borderWidth = 1.0f;
+    _mCommentOrderButton.layer.borderWidth = 0.5f;
     
     __weak typeof(self) weakSelf = self;
     [_mCommentOrderButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {

@@ -68,13 +68,17 @@
     _mCallButton.didFinishAutoLayoutBlock = ^(CGRect frame) {
         [weakButton qpx_buttonImageAndTitle:UIButtonLeftImageTitle spacing:10];
     };
-    self.GoodsOrderInfoServiceButtonAction?self.GoodsOrderInfoServiceButtonAction():nil;
+    QPXWeak_Self(self);
+    [_mCallButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        weakself.GoodsOrderInfoServiceButtonAction?weakself.GoodsOrderInfoServiceButtonAction():nil;
+    }];
+    
 }
 
 - (void)setModel:(NSDictionary *)model{
-    _mOrderIdView.model = [NSDictionary dictionaryWithObjects:@[@"订单号",@"139123456789012345678"] forKeys:@[@"key",@"value"]];
-    _mHopeTimeView.model = [NSDictionary dictionaryWithObjects:@[@"期望时间",@"2018-03-01 12：00"] forKeys:@[@"key",@"value"]];
-    _mAddressView.model = [NSDictionary dictionaryWithObjects:@[@"配送地址",@"奥巴马 13987654321\n苏宁生活广场写字楼-西北门13楼"] forKeys:@[@"key",@"value"]];
+    _mOrderIdView.model = [NSDictionary dictionaryWithObjects:@[@"订单号",model[@"no"]] forKeys:@[@"key",@"value"]];
+    _mHopeTimeView.model = [NSDictionary dictionaryWithObjects:@[@"期望时间",model[@"time"]] forKeys:@[@"key",@"value"]];
+    _mAddressView.model = [NSDictionary dictionaryWithObjects:@[@"配送地址",model[@"address"]] forKeys:@[@"key",@"value"]];
     [self setupAutoHeightWithBottomView:_mCallButton bottomMargin:10];
 }
 

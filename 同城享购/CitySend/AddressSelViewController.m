@@ -210,9 +210,7 @@ static NSString *cellId = @"cellId";
 }
 
 - (NSMutableArray *)dataSource{
-    return PX_LAZY(_dataSource, ({
-        _dataSource = [NSMutableArray new];
-    }));
+    return PX_LAZY(_dataSource, @[].mutableCopy);
 }
 
 @end

@@ -54,11 +54,15 @@
     _mCallButton.didFinishAutoLayoutBlock = ^(CGRect frame) {
         [weakButton qpx_buttonImageAndTitle:UIButtonLeftImageTitle spacing:10];
     };
-    self.GoodsOrderInfoRiderButtonAction?self.GoodsOrderInfoRiderButtonAction():nil;
+    QPXWeak_Self(self);
+    [_mCallButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        weakself.GoodsOrderInfoRiderButtonAction?weakself.GoodsOrderInfoRiderButtonAction():nil;
+    }];
+    
 }
 
-- (void)setModel:(NSDictionary *)model{
-    _mRiderView.model = [NSDictionary dictionaryWithObjects:@[@"配送骑手",@"李世民\n13912345678"] forKeys:@[@"key",@"value"]];
+- (void)setModel:(NSString *)model{
+    _mRiderView.model = [NSDictionary dictionaryWithObjects:@[@"配送骑手",model] forKeys:@[@"key",@"value"]];
     [self setupAutoHeightWithBottomView:_mCallButton bottomMargin:10];
 }
 

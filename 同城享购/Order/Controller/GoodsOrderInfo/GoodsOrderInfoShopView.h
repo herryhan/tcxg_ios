@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GoodsOrderModel.h"
+#import "GoodsOrderInfoModel.h"
 
 @interface GoodsOrderInfoShopView : UIView
 
 //** model */
-@property (nonatomic,strong) GoodsOrderModel * model;
+@property (nonatomic,strong) GoodsOrderInfoModel * model;
 @property (nonatomic,copy) void(^GoodsOrderInfoShopButtonAction)(void);
 
 @end

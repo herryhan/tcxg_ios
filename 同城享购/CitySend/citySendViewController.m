@@ -15,8 +15,9 @@
 #import "CitySendExtraServiceView.h"
 #import "CitySendBottomView.h"
 #import "CitySendBannerView.h"
+#import "MyAddressVC.h"
 
-@interface citySendViewController ()<CitySendViewClickDelegate,CitySendAddressViewDelegate,UIScrollViewDelegate>
+@interface citySendViewController ()<CitySendViewClickDelegate,CitySendAddressViewDelegate>
 
 @property (nonatomic,strong) UIScrollView *vScrollView;
 @property (nonatomic,strong) UIScrollView *hScrollView;
@@ -68,79 +69,24 @@
     
 }
 
-- (void)setupArrowView{
-    self.mLeftArrowButton = ({
-        UIButton *view = [[UIButton alloc] init];
-        [self.vScrollView addSubview:view];
-        view.sd_layout
-            .leftSpaceToView(self.vScrollView, 0)
-            .topSpaceToView(self.vScrollView, 44.8)
-            .bottomEqualToView(self.hScrollView)
-            .widthIs(50);
-        [view setBackgroundImage:[UIImage imageWithColor:PX_COLOR_HEX(@"57e038")] forState:UIControlStateNormal];
-        [view setBackgroundImage:[UIImage imageWithColor:PX_COLOR_HEX(@"999999")] forState:UIControlStateDisabled];
-        __weak typeof(self) weakSelf = self;
-        [view addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-            CGPoint point = weakSelf.hScrollView.contentOffset;
-            [weakSelf.hScrollView setContentOffset:CGPointMake(point.x - PX_SCREEN_WIDTH, point.y) animated:YES];
-        }];
-        view;
-    });
-    
-    self.mRightArrowButton = ({
-        UIButton *view = [[UIButton alloc] init];
-        [self.vScrollView addSubview:view];
-        view.sd_layout
-            .rightSpaceToView(self.vScrollView, 0)
-            .topSpaceToView(self.vScrollView, 44.8)
-            .bottomEqualToView(self.hScrollView)
-            .widthIs(50);
-        [view setBackgroundImage:[UIImage imageWithColor:PX_COLOR_HEX(@"57e038")] forState:UIControlStateNormal];
-        [view setBackgroundImage:[UIImage imageWithColor:PX_COLOR_HEX(@"999999")] forState:UIControlStateDisabled];
-        __weak typeof(self) weakSelf = self;
-        [view addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-            CGPoint point = weakSelf.hScrollView.contentOffset;
-            [weakSelf.hScrollView setContentOffset:CGPointMake(point.x + PX_SCREEN_WIDTH, point.y) animated:YES];
-        }];
-        view;
-    });
-    [self showLeftArrow:NO showRight:YES];
-}
-
 - (void)px_setupView{
     
-    NSArray *array = [NSArray arrayWithObjects:
-  @{@"title":@"1",@"weight":@"1\n4",@"vol":@"2\n3",@"three":@"3\n5"},
-  @{@"title":@"2",@"weight":@"1\n4",@"vol":@"2\n3",@"three":@"3\n5"},
-  @{@"title":@"3",@"weight":@"1\n4",@"vol":@"2\n3",@"three":@"3\n5"},
-  @{@"title":@"4",@"weight":@"1\n4",@"vol":@"2\n3"}, nil];
     UIView *tempView = nil;
-    for (NSDictionary *dict in array) {
-        CitySendBannerView *view = [[CitySendBannerView alloc] init];
-        view.mTitle = dict[@"title"];
-        view.mLoadWeight = dict[@"weight"];
-        view.mVolume = dict[@"vol"];
-        if (dict[@"three"] != nil) view.mThreeHigh = dict[@"three"];
-        view.mHaveThreeHigh = dict[@"three"] != nil;
+    for (NSInteger index = 0; index < 5; index++) {
+        UIImageView *view = [UIImageView new];
         [self.hScrollView addSubview:view];
-        if (tempView == nil){
-            view.sd_layout
-                .leftSpaceToView(self.hScrollView, 0)
-                .topSpaceToView(self.hScrollView, 0)
-                .bottomSpaceToView(self.hScrollView, 0)
-                .widthIs(PX_SCREEN_WIDTH);
-        }else{
-            view.sd_layout
-                .leftSpaceToView(tempView, 0)
-                .topSpaceToView(self.hScrollView, 0)
-                .bottomSpaceToView(self.hScrollView, 0)
-                .widthIs(PX_SCREEN_WIDTH);
-        }
+        view.sd_layout
+            .leftSpaceToView(tempView, 0)
+            .topSpaceToView(self.hScrollView, 20)
+            .bottomSpaceToView(self.hScrollView, 0)
+            .widthIs(PX_SCREEN_WIDTH);
+        view.image = [UIImage imageNamed:[NSString stringWithFormat:@"car_%zd",index]];
         tempView = view;
-        [self.hScrollView setupAutoContentSizeWithRightView:tempView rightMargin:0];
     }
+    [self.hScrollView setupAutoContentSizeWithRightView:tempView rightMargin:0];
     
     self.mBottomView.backgroundColor = PX_COLOR_HEX(@"ffffff");
+    
     for (NSArray *arr in self.dataSource) {
         NSMutableArray *temp = [NSMutableArray new];
         for (NSDictionary *dict in arr) {
@@ -180,8 +126,6 @@
     self.sAddressView.topLineShow = YES;
     self.sAddressView.botLineShow = NO;
     
-    [self setupArrowView];
-    
 }
 
 - (void)addSubLineAtHSectionView{
@@ -199,10 +143,20 @@
                 .rightSpaceToView(self.hSectionView, 0)
                 .topSpaceToView(self.sAddressView, 0)
                 .heightIs(50);
+            [self.tAddressView.adButton setImage:PX_IMAGE_NAMED(@"减号") forState:UIControlStateNormal];
+            self.sAddressView.tagImageView.image = [UIImage imageWithColor:PX_COLOR_HEX(@"666666")];
+            self.tAddressView.tagImageView.image = [UIImage imageWithColor:PX_COLOR_HEX(@"57e038")];
+            self.sAddressView.tagImageView.sd_layout
+            .leftSpaceToView(self.sAddressView, 11.5).widthIs(5).heightEqualToWidth();
+            [self.sAddressView updateLayout];
         }) : ({
             self.sAddressView.botLineShow = NO;
             [self.tAddressView removeFromSuperview];
             self.hSectionView.sd_layout.heightIs(100);
+            self.sAddressView.tagImageView.image = [UIImage imageWithColor:PX_COLOR_HEX(@"57e038")];
+            self.sAddressView.tagImageView.sd_layout
+            .leftSpaceToView(self.sAddressView, 10).widthIs(8).heightEqualToWidth();
+            [self.sAddressView updateLayout];
         });
     }];
 }
@@ -246,7 +200,6 @@
             PXDALog(@"%@",array);
         };
     }
-    
 }
 
 - (NSMutableAttributedString *)getAttributeString:(NSString *)name mobile:(NSString *)mobile{
@@ -261,18 +214,27 @@
     return syString;
 }
 
-- (void)citySendAddressView:(CitySendAddressView *)addressView didSelectedAtNameLabel:(UILabel *)nameLabel clickAtView:(UIView *)view
-{
+- (void)citySendAddressView:(CitySendAddressView *)addressView didSelectedAtNameLabel:(UILabel *)nameLabel clickAtView:(UIView *)view{
     PXDALog(@"%s",__func__);
     if ([view isKindOfClass:[UIButton class]]) {
         UIButton *button = (UIButton *)view;
         if ((!([self.fAddressView.nameLabel.text isEqualToString:@"请选择地址"]
               &&[self.sAddressView.nameLabel.text isEqualToString:@"请选择地址"]))
             &&[button.currentImage isEqual:PX_IMAGE_NAMED(@"加号")]) {
-                [self addSubLineAtHSectionView];
+                if (self.hSectionView.height == 100) [self addSubLineAtHSectionView];
         }
         if ([button.currentImage isEqual:PX_IMAGE_NAMED(@"减号")]) {
-            [self addSubLineAtHSectionView];
+            if (button == addressView.adButton) {
+                //如果有第三行就去掉第三行
+                if (self.hSectionView.height != 100) [self addSubLineAtHSectionView];
+            }else{
+                MyAddressVC *vc = [MyAddressVC new];
+                vc.SelMyAddressBlock = ^(MyAddressModel *model) {
+                    //选择地址
+                    addressView.nameLabel.attributedText = [self getAttributeString:model.mine_address subName:model.mine_number];
+                };
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }else{
         AddressSelViewController *vc = [[AddressSelViewController alloc] init];
@@ -294,23 +256,6 @@
     return syString;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGPoint point = scrollView.contentOffset;
-    NSInteger page = point.x/PX_SCREEN_WIDTH;
-    if (page == 0) {
-        [self showLeftArrow:NO showRight:YES];
-    }else if (page == 3) {
-        [self showLeftArrow:YES showRight:NO];
-    }else{
-        [self showLeftArrow:YES showRight:YES];
-    }
-}
-
-- (void)showLeftArrow:(BOOL)showLeft showRight:(BOOL)showRight{
-    self.mLeftArrowButton.enabled = showLeft;
-    self.mRightArrowButton.enabled = showRight;
-}
-
 #pragma mark ==========================LAZY======================================
 
 - (UIScrollView *)vScrollView{
@@ -319,7 +264,7 @@
             UIScrollView *view = [[UIScrollView alloc] init];
             [self.view addSubview:view];
             view.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 100, 0));
-            view.backgroundColor = PX_COLOR_HEX(@"dfdfdf");
+            view.backgroundColor = self.view.backgroundColor;
             view.bounces = NO;
             view;
         });
@@ -336,10 +281,10 @@
                 .leftSpaceToView(self.vScrollView, 0)
                 .topSpaceToView(self.vScrollView, -20)
                 .rightSpaceToView(self.vScrollView, 0)
-                .heightIs(250);
+                .heightIs(270);
             view.pagingEnabled = YES;
             view.showsHorizontalScrollIndicator = NO;
-            view.delegate = self;
+            view.backgroundColor = PX_COLOR_HEX(@"FFFFFF");
             view.bounces = NO;
             view;
         });
@@ -431,27 +376,30 @@
 
 - (CitySendAddressView *)fAddressView{
     return PX_LAZY(_fAddressView, ({
-        _fAddressView = [[CitySendAddressView alloc] init];
-        [self.hSectionView addSubview:_fAddressView];
-        _fAddressView.sd_layout
+        CitySendAddressView *view = [[CitySendAddressView alloc] init];
+        [self.hSectionView addSubview:view];
+        view.sd_layout
             .leftSpaceToView(self.hSectionView, 0)
             .rightSpaceToView(self.hSectionView, 0)
             .topSpaceToView(self.hSectionView, 0)
             .heightIs(50);
-        _fAddressView;
+        view.tagImageView.image = [UIImage imageWithColor:PX_COLOR_HEX(@"57e038")];
+        view;
     }));
 }
 
 - (CitySendAddressView *)sAddressView{
     return PX_LAZY(_sAddressView, ({
-        _sAddressView = [[CitySendAddressView alloc] init];
-        [self.hSectionView addSubview:_sAddressView];
-        _sAddressView.sd_layout
+        CitySendAddressView *view = [[CitySendAddressView alloc] init];
+        [self.hSectionView addSubview:view];
+        view.sd_layout
             .leftSpaceToView(self.hSectionView, 0)
             .rightSpaceToView(self.hSectionView, 0)
             .topSpaceToView(self.fAddressView, 0)
             .heightIs(50);
-        _sAddressView;
+        view.tagImageView.image = [UIImage imageWithColor:PX_COLOR_HEX(@"57e038")];
+        [view.adButton setImage:PX_IMAGE_NAMED(@"减号") forState:UIControlStateNormal];
+        view;
     }));
 }
 

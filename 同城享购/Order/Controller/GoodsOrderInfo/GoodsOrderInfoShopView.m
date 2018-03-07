@@ -116,15 +116,17 @@
     _mCallButton.didFinishAutoLayoutBlock = ^(CGRect frame) {
         [weakButton qpx_buttonImageAndTitle:UIButtonLeftImageTitle spacing:10];
     };
-    
-    self.GoodsOrderInfoShopButtonAction?self.GoodsOrderInfoShopButtonAction():nil;
+    QPXWeak_Self(self);
+    [_mCallButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        weakself.GoodsOrderInfoShopButtonAction?weakself.GoodsOrderInfoShopButtonAction():nil;
+    }];
 }
 
-- (void)setModel:(GoodsOrderModel *)model{
+- (void)setModel:(GoodsOrderInfoModel *)model{
     
-    _mShopNameLabel.text = model.order_shopName;
+    _mShopNameLabel.text = model.model_shopName;
     UIView *lastView = nil;
-    for (GoodsProducts *product in model.order_products) {
+    for (GoodsOrderInfoProducts *product in model.model_products) {
         GoodsOrderInfoShopImageView *view = [GoodsOrderInfoShopImageView new];
         [_mScrollView addSubview:view];
         view.sd_layout
@@ -134,18 +136,18 @@
             .widthEqualToHeight();
         lastView = view;
         view.sd_cornerRadius = @(5);
-        [view sd_setImageWithURL:[NSURL URLWithString:product.order_logo] placeholderImage:nil];
-        view.num = [NSString stringWithFormat:@"%ld",(long)product.order_count];
+        [view sd_setImageWithURL:[NSURL URLWithString:product.model_logo] placeholderImage:nil];
+        view.num = [NSString stringWithFormat:@"%zd",product.model_count];
     }
     
-    _mNumWeightLabel.text = @"共1件，0.05kg";
+    _mNumWeightLabel.text = [NSString stringWithFormat:@"共%zd件，%.2fkg",model.model_count,model.model_weight];//@"共1件，0.05kg";
     
     NSArray *priceModel = [NSArray arrayWithObjects:
-                           [NSDictionary dictionaryWithObjects:@[@"商品金额",@"￥ 22.00"] forKeys:@[@"key",@"value"]],
-                           [NSDictionary dictionaryWithObjects:@[@"配送费",@"￥ 1.00"] forKeys:@[@"key",@"value"]], nil];
+                           [NSDictionary dictionaryWithObjects:@[@"商品金额",[NSString stringWithFormat:@"￥%.2f",model.model_money]] forKeys:@[@"key",@"value"]],
+                           [NSDictionary dictionaryWithObjects:@[@"配送费",[NSString stringWithFormat:@"￥%.2f",model.model_fee]] forKeys:@[@"key",@"value"]], nil];
     NSArray *discountModel = [NSArray arrayWithObjects:
-                              [NSDictionary dictionaryWithObjects:@[@"应付金额",@"￥ 22.56"] forKeys:@[@"key",@"value"]],
-                              [NSDictionary dictionaryWithObjects:@[@"优惠金额",@"￥ 0.44"] forKeys:@[@"key",@"value"]], nil];
+                              [NSDictionary dictionaryWithObjects:@[@"应付金额",[NSString stringWithFormat:@"￥%.2f",model.model_payMoney]] forKeys:@[@"key",@"value"]],
+                              [NSDictionary dictionaryWithObjects:@[@"优惠金额",[NSString stringWithFormat:@"￥%.2f",model.model_discountMoney]] forKeys:@[@"key",@"value"]], nil];
     UIView *priceTemp = nil;
     UIView *discountTemp = nil;
     for (NSInteger index = 0 ; index < 2; index ++) {

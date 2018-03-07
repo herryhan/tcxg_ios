@@ -107,13 +107,6 @@
 }
 
 + (void)showAnimation:(UIView *)view backView:(UIButton *)backView{
-//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-//    animation.toValue = [NSValue valueWithCGPoint:CGRectGetCenter([UIApplication sharedApplication].keyWindow.bounds)];
-//    animation.removedOnCompletion = NO;
-//    animation.duration = .3;
-//    animation.fillMode = kCAFillModeForwards;
-//    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    [view.layer addAnimation:animation forKey:@"PostionAni"];
     [UIView animateWithDuration:.5f animations:^{
         view.alpha = 1;
     }];

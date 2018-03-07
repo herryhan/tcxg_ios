@@ -26,6 +26,9 @@
     PXSingleLineView *_mAddressLineView;
     EditeAddressCellView *_mNumberView;
 }
+@property (nonatomic,strong) CLLocation *location;
+@property (nonatomic,copy) NSString *locationName;
+@property (nonatomic,copy) NSString *locationSubName;
 @end
 
 @implementation EditeAddressVC
@@ -184,22 +187,33 @@
 - (void)insertModel{
     if (self.model) {
         //填充已有数据
-        _mNameView.mTextField.text = self.model.mine_name;
-        _mTelView.mTextField.text = self.model.mine_tel;
-        _mAddressView.mMapView.mMapLabel.text = self.model.mine_address;
-        _mAddressView.mMapView.mMapLabel.textColor = PX_COLOR_HEX(@"333333");
-        _mNumberView.mTextField.text = self.model.mine_number;
+        [URLRequest postWithURL:@"address" params:@{@"uuid":Uid,@"locate":@(1),@"channelId":@"",@"os":@"ios",@"id":self.model.mine_id} success:^(NSURLSessionDataTask *task, id responseObject) {
+            responseObject = responseObject?[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]:nil;
+            self.model = [MyAddressModel mj_setKeyValues:responseObject];
+            _mNameView.mTextField.text = self.model.mine_name;
+            _mTelView.mTextField.text = self.model.mine_tel;
+            _mAddressView.mMapView.mMapLabel.text = self.model.mine_address;
+            _mAddressView.mMapView.mMapLabel.textColor = PX_COLOR_HEX(@"333333");
+            _mNumberView.mTextField.text = self.model.mine_number;
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            
+        }];
     }
+    
 }
 
 -(void)editeAddressCellView:(EditeAddressCellView *)cell clickMapView:(EditeAddressMapView *)mapView{
     //选择地址
     PXDALog(@"%s",__func__);
+    QPXWeak_Self(self);
     AddressSelViewController *vc = [AddressSelViewController new];
     vc.SelAddress = ^(CLLocation *location, NSString *name, NSString *subName) {
         PXDALog(@"%@--%@",name,subName);
         mapView.mMapLabel.text = name;
         mapView.mMapLabel.textColor = PX_COLOR_HEX(@"333333");
+        weakself.location = location;
+        weakself.locationName = name;
+        weakself.locationSubName = subName;
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -222,9 +236,44 @@
         [SVProgressHUD showErrorWithStatus:@"请输入楼号-门牌号，以便配送员找到您"];
         return;
     }
+    /*
+     la    33.597549
+     lo    119.027473
+     name    阿里里
+     tel    13512345678
+     address    新亚国际大厦
+     number    阿里里
+     uuid    9A9F0A60-129A-4D8E-8E3F-11534881A7D8
+     channelId    (null)
+     os    ios
+     locate    1
+     */
     //保存地址
-    
-    
+    NSString *name = _mNameView.mTextField.text;
+    NSString *phone = _mTelView.mTextField.text;
+    NSString *number = _mNumberView.mTextField.text;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[@(self.location.coordinate.latitude),@(self.location.coordinate.longitude),name,phone,self.locationName,number,Uid,@"",@"ios",@(1)] forKeys:@[@"la",@"lo",@"name",@"tel",@"address",@"number",@"uuid",@"channelId",@"os",@"locate"]];
+    NSString *URLString = nil;
+    NSString *status = nil;
+    if (self.model) {
+        //修改地址
+        URLString = @"address/update";
+        [params setValue:self.model.mine_id forKey:@"id"];
+        status = @"地址修改成功";
+    }else {
+        URLString = @"address/add";
+        status = @"地址添加成功";
+    }
+    [SVProgressHUD showWithStatus:@"请稍候…"];
+    [URLRequest postWithURL:URLString params:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        responseObject = responseObject ? [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding] : nil;
+        if ([responseObject isEqualToString:@"\'ok\'"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [SVProgressHUD showSuccessWithStatus:status];
+        }else [SVProgressHUD showErrorWithStatus:@"服务器打盹了……"];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"服务器打盹了……"];
+    }];
 }
 
 @end

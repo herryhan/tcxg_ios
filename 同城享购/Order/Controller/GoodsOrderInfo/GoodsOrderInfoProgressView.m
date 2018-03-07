@@ -89,37 +89,40 @@
     UILabel *textLabel = [self.labelsSource objectAtIndex:5];//获得文字label
     UIView *circleView = [self.itemsSource objectAtIndex:5];//获取圆点
     
-    //绘制圆环
-    UIBezierPath * path = [UIBezierPath bezierPath];
-
-    CGFloat pointX = (PX_SCREEN_WIDTH - 90)/5 * progress + 3;
-    [path addArcWithCenter:CGPointMake(pointX, 3) radius:6 startAngle:M_PI endAngle:3*M_PI clockwise:TRUE];
-    
-    CAShapeLayer * pathLayer = [CAShapeLayer layer];
-    pathLayer.path = path.CGPath;
-    pathLayer.strokeColor = [PX_COLOR_HEX(@"57e038") CGColor];//画线颜色
-    pathLayer.fillColor = [[UIColor clearColor]CGColor];//填充颜色
-    pathLayer.lineJoin = kCALineJoinRound;
-    pathLayer.lineWidth = 1.0f;
-    [circleView.superview.layer addSublayer:pathLayer];
-    
-    pathLayer.strokeStart = 0;
-    pathLayer.strokeEnd = 2 * M_PI;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration = 2.f;
-    animation.fromValue = @(0);
-    animation.toValue = @(1);
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [pathLayer addAnimation:animation forKey:@""];
-    
-    [UIView animateWithDuration:2.0f animations:^{
-        textLabel.textColor = PX_COLOR_HEX(@"57e038");
-        circleView.backgroundColor = PX_COLOR_HEX(@"57e038");
-    }];
-    
+    if (progress >= 0 && progress <6) {
+        //绘制圆环
+        UIBezierPath * path = [UIBezierPath bezierPath];
+        
+        CGFloat pointX = (PX_SCREEN_WIDTH - 90)/5 * progress + 3;
+        [path addArcWithCenter:CGPointMake(pointX, 3) radius:6 startAngle:M_PI endAngle:3*M_PI clockwise:TRUE];
+        
+        CAShapeLayer * pathLayer = [CAShapeLayer layer];
+        pathLayer.path = path.CGPath;
+        pathLayer.strokeColor = [PX_COLOR_HEX(@"57e038") CGColor];//画线颜色
+        pathLayer.fillColor = [[UIColor clearColor]CGColor];//填充颜色
+        pathLayer.lineJoin = kCALineJoinRound;
+        pathLayer.lineWidth = 1.0f;
+        [circleView.superview.layer addSublayer:pathLayer];
+        
+        pathLayer.strokeStart = 0;
+        pathLayer.strokeEnd = 2 * M_PI;
+        
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        animation.duration = 2.f;
+        animation.fromValue = @(0);
+        animation.toValue = @(1);
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [pathLayer addAnimation:animation forKey:@""];
+        
+        [UIView animateWithDuration:2.0f animations:^{
+            textLabel.textColor = PX_COLOR_HEX(@"57e038");
+            circleView.backgroundColor = PX_COLOR_HEX(@"57e038");
+        }];
+    }else{
+        //不绘制圆环
+    }
 }
 
 - (NSMutableArray *)itemsSource{

@@ -65,7 +65,7 @@
         .heightIs(10*margin);
     self.mTextView.layer.masksToBounds = YES;
     self.mTextView.layer.borderColor = PX_COLOR_HEX(@"999999").CGColor;
-    self.mTextView.layer.borderWidth = 1.0f;
+    self.mTextView.layer.borderWidth = .5f;
     self.mTextView.font = Font(15);
     self.mTextView.delegate = self;
     

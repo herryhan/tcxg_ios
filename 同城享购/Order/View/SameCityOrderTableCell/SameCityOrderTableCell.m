@@ -69,7 +69,7 @@
         .leftEqualToView(_mTimeLabel)
         .rightEqualToView(_mStateLabel)
         .topSpaceToView(_mTimeLabel, 0)
-        .heightIs(.8f);
+        .heightIs(.5f);
     
     _mImageView.sd_layout
         .leftEqualToView(_mTimeLabel)
@@ -83,7 +83,7 @@
         .leftSpaceToView(_mImageView, margin)
         .topEqualToView(_mImageView)
         .bottomEqualToView(_mImageView)
-        .widthIs(.8f);
+        .widthIs(.5f);
     
     _mAddressLabel.sd_layout
         .leftSpaceToView(_mVerticalLineView, margin)
@@ -100,7 +100,7 @@
         .leftEqualToView(_mTimeLabel)
         .rightEqualToView(_mTopLineView)
         .topSpaceToView(_mImageView, margin)
-        .heightIs(.8f);
+        .heightIs(.5f);
     
     _mPriceLabel.sd_layout
         .leftEqualToView(_mTopLineView)

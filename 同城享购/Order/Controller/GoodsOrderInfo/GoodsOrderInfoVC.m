@@ -12,6 +12,7 @@
 #import "GoodsOrderInfoRiderView.h"
 #import "GoodsOrderInfoServiceView.h"
 #import "GoodsCommentVC.h"
+#import "GoodsOrderInfoModel.h"
 
 @interface GoodsOrderInfoVC ()
 {
@@ -23,6 +24,7 @@
     GoodsOrderInfoRiderView *_mRiderView;//骑手详情
     GoodsOrderInfoServiceView *_mServiceView;//客服详情
 }
+@property (nonatomic,strong) GoodsOrderInfoModel *insetModel;
 @end
 
 @implementation GoodsOrderInfoVC
@@ -37,8 +39,43 @@
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    [self setupView];
     
+    
+    [self loadData];
+}
+
+- (void)loadData{
+    [SVProgressHUD showWithStatus:@"请稍候……"];
+    [URLRequest postWithURL:@"order" params:@{@"uuid":Uid,@"os":@"ios",@"channelId":@"5637447362195603251",@"locate":@(1),@"id":@(self.model.order_id)} success:^(NSURLSessionDataTask *task, id responseObject) {
+        responseObject = responseObject?[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil]:nil;
+        self.insetModel = [GoodsOrderInfoModel mj_objectWithKeyValues:responseObject];
+        [self setupView];
+        [self insetData];
+        [SVProgressHUD dismiss];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"服务器打盹了"];
+    }];
+}
+
+- (void)insetData{
+
+    _mHeaderView.model = self.insetModel;
+    _mShopView.model =  self.insetModel;
+    _mRiderView.model = [NSString stringWithFormat:@"%@  %@",self.insetModel.model_driverName,self.insetModel.model_driverTel];
+    _mServiceView.model = [NSDictionary dictionaryWithObjects:@[self.insetModel.model_no,self.insetModel.model_expectTime,[NSString stringWithFormat:@"%@  %@\n%@",self.insetModel.model_realname,self.insetModel.model_tel,self.insetModel.model_address]] forKeys:@[@"no",@"time",@"address"]];
+    __weak typeof(self) weakSelf = self;
+    
+    _mShopView.GoodsOrderInfoShopButtonAction = ^{
+        [weakSelf callMobileWithPhomeNumber:weakSelf.insetModel.model_shopTel];
+    };
+    
+    _mRiderView.GoodsOrderInfoRiderButtonAction = ^{
+        [weakSelf callMobileWithPhomeNumber:weakSelf.insetModel.model_driverTel];
+    };
+    
+    _mServiceView.GoodsOrderInfoServiceButtonAction = ^{
+        [weakSelf callMobileWithPhomeNumber:weakSelf.insetModel.model_serviceTel];
+    };
 }
 
 - (void)setupView{
@@ -61,9 +98,11 @@
     _mScrollView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(64, 0, 0, 0));
     
     CGFloat padding = 15.0f;
+    CGFloat margin = 10.0f;
     
     UIView *view         = [UIView new];
     view.backgroundColor = self.view.backgroundColor;
+    view.sd_cornerRadius = @(10);
     [_mScrollView addSubview:view];
     view.sd_layout
         .leftSpaceToView(_mScrollView, padding)
@@ -80,7 +119,6 @@
         .leftSpaceToView(view, 0)
         .rightSpaceToView(view, 0)
         .topSpaceToView(view, 0);
-    _mHeaderView.model = self.model;
     __weak typeof(self) weakSelf = self;
     _mHeaderView.GoodsOrderInfoHeadViewButtonAction = ^(UIButton *sender) {
         GoodsCommentVC *vc = [GoodsCommentVC new];
@@ -90,33 +128,23 @@
     _mShopView.sd_layout
         .leftEqualToView(_mHeaderView)
         .rightEqualToView(_mHeaderView)
-        .topSpaceToView(_mHeaderView, padding);
-    _mShopView.model = self.model;
-    _mShopView.GoodsOrderInfoShopButtonAction = ^{
-        [weakSelf callMobileWithPhomeNumber:@"0517-10086"];
-    };
+        .topSpaceToView(_mHeaderView, margin);
+    
     
     _mRiderView.sd_layout
         .leftEqualToView(_mHeaderView)
         .rightEqualToView(_mHeaderView)
-        .topSpaceToView(_mShopView, padding);
-    _mRiderView.model = nil;
-    _mRiderView.GoodsOrderInfoRiderButtonAction = ^{
-        [weakSelf callMobileWithPhomeNumber:@"0517-10010"];
-    };
+        .topSpaceToView(_mShopView, margin);
+    
     
     _mServiceView.sd_layout
         .leftEqualToView(_mHeaderView)
         .rightEqualToView(_mHeaderView)
-        .topSpaceToView(_mRiderView, padding);
-    _mServiceView.model = nil;
-    _mServiceView.GoodsOrderInfoServiceButtonAction = ^{
-        [weakSelf callMobileWithPhomeNumber:@"0517-10000"];
-    };
+        .topSpaceToView(_mRiderView, margin);
     
-    [view setupAutoHeightWithBottomView:_mServiceView bottomMargin:padding];
+    [view setupAutoHeightWithBottomView:_mServiceView bottomMargin:0];
     
-    [_mScrollView setupAutoContentSizeWithBottomView:view bottomMargin:0];
+    [_mScrollView setupAutoContentSizeWithBottomView:view bottomMargin:padding];
 }
 
 - (void)callMobileWithPhomeNumber:(NSString *)phomeNumber{
